@@ -1,0 +1,133 @@
+%The list of all of the individuals that have been used in the British royal family.
+man(albert i).
+man(alfred).
+man(edward).
+man(arthur).
+man(leopold).
+man(albert ii).
+man(maud).
+man(john).
+man(george).
+man(edward vi).
+man(george vi).
+man(henry i).
+man(george duke of kent).
+man(john).
+man(phillip).
+man(richard).
+man(edward).
+man(charles).
+man(andrew).
+man(edward).
+man(micheal).
+man(william).
+man(henry ii).
+man(peter).
+man(severn).
+woman(eugenie).
+woman(louis i).
+woman(beatrice).
+woman(zara).
+woman(alexandra).
+woman(anne).
+woman(margret).
+woman(elezebeth i).
+woman(elizabeth ii).
+woman(mary i).
+woman(mary ii).
+woman(louise i).
+woman(victoria i).
+woman(victoria ii).
+woman(alice).
+woman(helena).
+woman(alexandra).
+woman(louise ii).
+woman(beatrice).
+
+%An entire list of parents that are needed in order to check for ancestry and relations
+parent(albert i, victoria ii).
+parent(victoria i, victoria ii).
+parent(albert i, alice).
+parent(victoria i, alice).
+parent(albert i, helena).
+parent(albert i, alexandra).
+parent(victoria i, helena).
+parent(victoria i, alexandra).
+parent(albert i, edward vii).
+parent(victoria i, edward vii).
+parent(albert i, louise i).
+parent(albert i, arthur).
+parent(victoria i, loiuise i).
+parent(victoria i, arthur).
+parent(albert i, leopold).
+parent(victoria i, leopold).
+parent(albert i, beatrice).
+parent(victoria i, beatrice).
+parent(alexandra, albert ii).
+parent(edward vii, albert ii).
+parent(alexandra, louise ii).
+parent(edward vii, louise ii).
+parent(alexandra, victoria ii).
+parent(edward vii, victoria ii).
+parent(alexandra, maud).
+parent(edward vii, maud).
+parent(alexandra, john).
+parent(edward vii, john).
+parent(alexandra, george v).
+parent(edward vii, george v).
+parent(george v, edward vi).
+parent(mary i, edward vi).
+parent(george v, george vi).
+parent(mary i, george vi).
+parent(george v, mary ii).
+parent(mary i, mary ii).
+parent(george v, henry i).
+parent(mary i, henry i).
+parent(george v, george).
+parent(mary i, george).
+parent(george v, john).
+parent(mary i, john).
+parent(george vi, elizabeth ii).
+parent(elizabeth i, elizabeth ii).
+parent(george vi, margaret).
+parent(elizabeth i, margaret).
+parent(elizabeth ii, charles).
+parent(phillip, charles).
+parent(elizabeth ii, anne).
+parent(phillip, anne).
+parent(elizabeth ii, andrew).
+parent(philiip, andrew).
+parent(elizabeth ii, edward).
+parent(phillip, edward).
+parent(charles, william).
+parent(diana, william).
+parent(charles, henry).
+parent(diana, henry).
+parent(anne, peter).
+parent(mark, peter).
+parent(anne, zara).
+parent(mark, zara).
+parent(andrew, beatrice).
+parent(sarah, beatrice).
+parent(andrew, eugenie).
+parent(sarah, eugenie).
+parent(edward, louise ii).
+parent(sophia, louise ii).
+parent(edward, severn).
+parent(sophia, severn).
+
+father(F,C):-man(F),parent(F,C). %This checks to see if the person is the father
+mother(M,C):-woman(M),parent(M,C).  %This checks to see if the person is the mother
+is_father(F):-father(F,_). %Gets the father based on the child.
+is_mother(M):-mother(M,_). %Gets the mother based on the child.
+son(S,P):-man(S),parent(P,S). %Checks to  get the son based on the father.
+daughter(D,P):-woman(D),parent(P,D). %Checks to get the son based on the mother.
+siblings(A,B):- %this checks to see if the two are siblings based on the parents to see if they match.
+	parent(F,A),parent(F,B).
+	parent(M,A),parent(M,B).
+	A\=B, F\=B.
+uncle(U,N):-man(U),siblings(U,P),parent(P,N). %Checks to see if there is an uncle based on if the parents are together, at least one parent in common.
+aunt(A,N):-woman(A),siblings(A,P),parent(P,N). %Checks to see if there is an aunt based on the facts if the children have at lease one parent in common.
+ancestor(A,D):-descendant(D,A). %Checks to see if the parents have a child and then sees if they are descendants to one another.
+
+
